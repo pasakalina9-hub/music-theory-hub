@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="uk" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Conservatory Music Theory Hub | 50+ Terms & Audio Lab</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#080c14',
+                        cardBg: '#0f172a',
+                        cardHover: '#1e293b',
+                        accent: '#7c3aed',
+                        accentHover: '#6d28d9',
+                        gold: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass { background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .perspective { perspective: 1200px; }
+        .transform-style { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+        /* Custom Piano Key Styles */
+        .white-key { background: linear-gradient(to bottom, #f8fafc 0%, #cbd5e1 100%); }
+        .white-key:hover { background: linear-gradient(to bottom, #ffffff 0%, #94a3b8 100%); }
+        .white-key.active { background: linear-gradient(to bottom, #c4b5fd 0%, #a78bfa 100%); }
+        .black-key { background: linear-gradient(to bottom, #1e293b 0%, #020617 100%); }
+        .black-key:hover { background: linear-gradient(to bottom, #334155 0%, #0f172a 100%); }
+        .black-key.active { background: linear-gradient(to bottom, #8b5cf6 0%, #6d28d9 100%); }
+    </style>
+</head>
+<body class="bg-darkBg text-slate-100 min-h-screen flex flex-col selection:bg-violet-600 selection:text-white">
+
+    <!-- Top Header Navigation -->
+    <header class="glass sticky top-0 z-50 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-violet-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-violet-600/30">
+                    <i class="fa-solid fa-graduation-cap text-white text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">Conservatory Theory Hub</h1>
+                    <p class="text-xs text-violet-400 font-medium">Просунутий курс гармонії та аналізу (50+ термінів)</p>
+                </div>
+            </div>
+
+            <!-- Desktop Nav Buttons -->
+            <nav class="hidden lg:flex items-center space-x-1">
+                <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-violet-600 text-white shadow-md shadow-violet-600/20">
+                    <i class="fa-solid fa-house mr-2"></i>Головна
+                </button>
+                <button onclick="switchTab('flashcards')" id="nav-flashcards" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-slate-800/60">
+                    <i class="fa-solid fa-clone mr-2"></i>Картки
+                </button>
+                <button onclick="switchTab('quiz')" id="nav-quiz" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-slate-800/60">
+                    <i class="fa-solid fa-brain mr-2"></i>Колоквіум
+                </button>
+                <button onclick="switchTab('piano')" id="nav-piano" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-slate-800/60">
+                    <i class="fa-solid fa-piano mr-2"></i>Студія & Аудіо
+                </button>
+                <button onclick="switchTab('dictionary')" id="nav-dictionary" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-slate-800/60">
+                    <i class="fa-solid fa-book-open mr-2"></i>Словник (50+)
+                </button>
+            </nav>
+
+            <!-- Mobile Menu Toggle -->
+            <div class="lg:hidden flex items-center">
+                <button onclick="toggleMobileMenu()" class="p-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden px-4 pt-2 pb-4 space-y-1.5 bg-cardBg border-b border-slate-800">
+            <button onclick="switchTab('dashboard'); toggleMobileMenu();" class="w-full text-left px-3.5 py-2.5 rounded-xl text-sm font-medium text-white bg-violet-600"><i class="fa-solid fa-house mr-2"></i>Головна</button>
+            <button onclick="switchTab('flashcards'); toggleMobileMenu();" class="w-full text-left px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-slate-800"><i class="fa-solid fa-clone mr-2"></i>Картки</button>
+            <button onclick="switchTab('quiz'); toggleMobileMenu();" class="w-full text-left px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-slate-800"><i class="fa-solid fa-brain mr-2"></i>Колоквіум</button>
+            <button onclick="switchTab('piano'); toggleMobileMenu();" class="w-full text-left px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-slate-800"><i class="fa-solid fa-piano mr-2"></i>Студія & Аудіо</button>
+            <button onclick="switchTab('dictionary'); toggleMobileMenu();" class="w-full text-left px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-slate-800"><i class="fa-solid fa-book-open mr-2"></i>Словник (50+)</button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- ================= TAB 1: DASHBOARD ================= -->
+        <section id="tab-dashboard" class="space-y-8">
+            <!-- Hero Banner -->
+            <div class="relative overflow-hidden bg-gradient-to-r from-violet-900/40 via-indigo-950/60 to-slate-900 border border-violet-500/20 rounded-3xl p-8 md:p-12 shadow-2xl">
+                <div class="relative z-10 max-w-2xl">
+                    <span class="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-semibold bg-violet-500/20 text-violet-300 border border-violet-500/30 mb-4">
+                        <i class="fa-solid fa-award mr-2"></i>Академічний стандарт 3-4 курсів консерваторії
+                    </span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">Енциклопедія просунутої гармонії та композиції</h2>
+                    <p class="text-slate-300 text-sm md:text-base leading-relaxed mb-6">
+                        Понад 50 фундаментальних і сучасних музичних термінів: альтеровані домінантові структури, секстакорди збільшеної кварти (італійський, французький, німецький, швейцарський), політональність, додекафонія, модальні системи та виконавська агогіка.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="switchTab('dictionary')" class="px-6 py-3.5 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-2xl text-sm shadow-lg shadow-violet-600/30 transition-all flex items-center">
+                            <i class="fa-solid fa-book-open mr-2"></i>Переглянути всі 50+ термінів
+                        </button>
+                        <button onclick="switchTab('quiz')" class="px-6 py-3.5 bg-cardBg hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold rounded-2xl text-sm transition-all flex items-center">
+                            <i class="fa-solid fa-clipboard-question mr-2"></i>Розпочати колоквіум
+                        </button>
+                    </div>
+                </div>
+                <div class="absolute right-0 bottom-0 opacity-10 md:opacity-20 translate-x-12 translate-y-12 pointer-events-none">
+                    <i class="fa-solid fa-music text-[260px] text-violet-400"></i>
+                </div>
+            </div>
+
+            <!-- Progress Statistics Bar -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-xl bg-violet-500/20 text-violet-400 flex items-center justify-center text-xl font-bold border border-violet-500/30">
+                        <i class="fa-solid fa-book"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-medium">База термінів</p>
+                        <p class="text-2xl font-extrabold text-white">52 одиниці</p>
+                    </div>
+                </div>
+                <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl font-bold border border-emerald-500/30">
+                        <i class="fa-solid fa-clone"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-medium">Опановано карток</p>
+                        <p id="stat-flashcards" class="text-2xl font-extrabold text-white">0 / 52</p>
+                    </div>
+                </div>
+                <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl font-bold border border-amber-500/30">
+                        <i class="fa-solid fa-fire"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-medium">Серія відповідей</p>
+                        <p id="stat-streak" class="text-2xl font-extrabold text-white">0 🔥</p>
+                    </div>
+                </div>
+                <div class="bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-xl font-bold border border-sky-500/30">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-medium">Студійний звук</p>
+                        <p class="text-2xl font-extrabold text-white">Web Audio</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Showcase Grid -->
+            <div>
+                <h3 class="text-xl font-bold text-white mb-4"><i class="fa-solid fa-layer-group text-violet-500 mr-2"></i>Категорії навчального курсу</h3>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div onclick="filterDictionaryByCategory('harmonies'); switchTab('dictionary');" class="bg-cardBg hover:bg-cardHover border border-slate-800 hover:border-violet-500/40 rounded-2xl p-6 cursor-pointer transition-all shadow-xl group">
+                        <div class="w-10 h-10 rounded-xl bg-violet-600/20 text-violet-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-chord text-lg"></i>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-2">Альтерована гармонія</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">Альтеровані домінанти, тритонові заміни, секстакорди збільшеної кварти.</p>
+                        <span class="text-xs font-semibold text-violet-400 flex items-center">Переглянути <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                    </div>
+
+                    <div onclick="filterDictionaryByCategory('scales'); switchTab('dictionary');" class="bg-cardBg hover:bg-cardHover border border-slate-800 hover:border-violet-500/40 rounded-2xl p-6 cursor-pointer transition-all shadow-xl group">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-sliders text-lg"></i>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-2">Лади та системи</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">Модальні лади, пентатоніка, октатоніка, цілотонові системи, мікротоновість.</p>
+                        <span class="text-xs font-semibold text-emerald-400 flex items-center">Переглянути <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                    </div>
+
+                    <div onclick="filterDictionaryByCategory('technique'); switchTab('dictionary');" class="bg-cardBg hover:bg-cardHover border border-slate-800 hover:border-violet-500/40 rounded-2xl p-6 cursor-pointer transition-all shadow-xl group">
+                        <div class="w-10 h-10 rounded-xl bg-amber-600/20 text-amber-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-atom text-lg"></i>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-2">Техніки XX століття</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">Додекафонія, серіалізм, політональність, алеаторика, сонористика.</p>
+                        <span class="text-xs font-semibold text-amber-400 flex items-center">Переглянути <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                    </div>
+
+                    <div onclick="filterDictionaryByCategory('expression'); switchTab('dictionary');" class="bg-cardBg hover:bg-cardHover border border-slate-800 hover:border-violet-500/40 rounded-2xl p-6 cursor-pointer transition-all shadow-xl group">
+                        <div class="w-10 h-10 rounded-xl bg-sky-600/20 text-sky-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-gauge-high text-lg"></i>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-2">Виконання та аналіз</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">Агогіка, rubato, контрапункт, стрета, фактура, архітектонічні форми.</p>
+                        <span class="text-xs font-semibold text-sky-400 flex items-center">Переглянути <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= TAB 2: FLASHCARDS ================= -->
+        <section id="tab-flashcards" class="hidden space-y-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-cardBg p-6 rounded-2xl border border-slate-800 shadow-xl">
+                <div>
+                    <h2 class="text-2xl font-bold text-white mb-1"><i class="fa-solid fa-clone text-violet-500 mr-2"></i>Цифрові картки термінів (52 шт.)</h2>
+                    <p class="text-sm text-slate-400">Натисніть на картку для перевороту. Оцініть своє засвоєння матеріалу.</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3">
+                    <select id="category-filter" onchange="filterFlashcards()" class="bg-slate-900 border border-slate-700 text-slate-200 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-violet-500">
+                        <option value="all">Усі категорії (52)</option>
+                        <option value="harmonies">Альтерована гармонія & Акорди</option>
+                        <option value="scales">Лади та звуковисотні системи</option>
+                        <option value="technique">Техніки XX-XXI ст. & Серіалізм</option>
+                        <option value="expression">Виконання, Поліфонія & Аналіз</option>
+                    </select>
+                    <button onclick="shuffleFlashcards()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium rounded-xl transition-colors border border-slate-700 flex items-center">
+                        <i class="fa-solid fa-shuffle mr-2"></i>Перемішати
+                    </button>
+                </div>
+            </div>
+
+            <!-- Flashcard Box -->
+            <div class="flex flex-col items-center justify-center py-4">
+                <div class="w-full max-w-2xl h-[400px] perspective cursor-pointer" onclick="flipCard()">
+                    <div id="flashcard-inner" class="relative w-full h-full duration-500 transform-style shadow-2xl rounded-3xl">
+                        
+                        <!-- Front Face -->
+                        <div class="absolute w-full h-full bg-gradient-to-br from-cardBg via-slate-900 to-cardBg rounded-3xl p-8 border border-slate-700/80 flex flex-col justify-between backface-hidden shadow-2xl">
+                            <div class="flex justify-between items-center">
+                                <span id="card-badge" class="px-3.5 py-1 bg-violet-500/20 text-violet-400 border border-violet-500/30 text-xs font-semibold rounded-full uppercase tracking-wider">Категорія</span>
+                                <span class="text-xs text-slate-400 font-mono">Картка <span id="current-card-num">1</span> з <span id="total-cards-num">52</span></span>
+                            </div>
+                            <div class="text-center my-auto">
+                                <h3 id="card-term" class="text-2xl md:text-3xl font-extrabold text-white tracking-tight mb-3">Термін</h3>
+                                <p class="text-xs text-violet-400 uppercase tracking-widest font-medium"><i class="fa-solid fa-hand-pointer mr-1"></i> Клацніть для перевороту</p>
+                            </div>
+                            <div class="flex justify-between items-center pt-4 border-t border-slate-800/80">
+                                <button onclick="event.stopPropagation(); playCurrentTermAudio()" class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-xl text-xs font-semibold flex items-center shadow-md transition-all">
+                                    <i class="fa-solid fa-volume-high mr-2"></i>Озвучити акорд
+                                </button>
+                                <span class="text-xs text-slate-400"><i class="fa-solid fa-rotate mr-1"></i>Зворотний бік містить аналіз</span>
+                            </div>
+                        </div>
+
+                        <!-- Back Face -->
+                        <div class="absolute w-full h-full bg-gradient-to-br from-slate-900 via-cardBg to-slate-900 rounded-3xl p-8 border border-violet-500/40 flex flex-col justify-between backface-hidden rotate-y-180 shadow-2xl overflow-y-auto">
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs text-violet-400 font-bold uppercase tracking-wider">Академічний розбір</span>
+                                    <span class="text-xs text-slate-400 font-mono">Визначення</span>
+                                </div>
+                                <h4 id="card-definition-title" class="text-lg font-bold text-white mb-2">Визначення</h4>
+                                <p id="card-definition" class="text-slate-300 text-xs md:text-sm leading-relaxed mb-3">Текст визначення...</p>
+                                <div class="bg-violet-950/40 border border-violet-800/40 rounded-xl p-3">
+                                    <p class="text-[11px] font-bold text-violet-300 uppercase tracking-wide mb-1"><i class="fa-solid fa-lightbulb mr-1"></i> Приклад та гармонічний контекст:</p>
+                                    <p id="card-example" class="text-[11px] text-slate-300 italic">Приклад тут...</p>
+                                </div>
+                            </div>
+                            <div class="pt-4 border-t border-slate-800 flex justify-between items-center">
+                                <span class="text-xs text-slate-400">Оцініть засвоєння:</span>
+                                <div class="space-x-2" onclick="event.stopPropagation()">
+                                    <button onclick="markCardStatus('review')" class="px-3 py-1.5 bg-rose-600/20 text-rose-300 border border-rose-500/30 rounded-xl text-xs font-semibold hover:bg-rose-600/30">Повторити</button>
+                                    <button onclick="markCardStatus('mastered')" class="px-3 py-1.5 bg-emerald-600/20 text-emerald-300 border border-emerald-500/30 rounded-xl text-xs font-semibold hover:bg-emerald-600/30">Зрозуміло</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Flashcard Controls -->
+                <div class="flex items-center justify-center space-x-4 mt-8">
+                    <button onclick="prevCard()" class="px-5 py-3 bg-cardBg hover:bg-slate-800 border border-slate-700 rounded-2xl text-slate-200 font-medium text-sm transition-all shadow-lg flex items-center">
+                        <i class="fa-solid fa-arrow-left mr-2"></i> Попередня
+                    </button>
+                    <button onclick="nextCard()" class="px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white rounded-2xl font-medium text-sm transition-all shadow-lg shadow-violet-600/30 flex items-center">
+                        Наступна <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= TAB 3: QUIZ ================= -->
+        <section id="tab-quiz" class="hidden space-y-6">
+            <div class="bg-cardBg p-6 rounded-2xl border border-slate-800 shadow-xl flex flex-col md:flex-row justify-between items-center gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-white mb-1"><i class="fa-solid fa-brain text-violet-500 mr-2"></i>Академічний колоквіум</h2>
+                    <p class="text-sm text-slate-400">Питання високого рівня складності з бази з 52 термінів.</p>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <div class="text-right">
+                        <p class="text-xs text-slate-400">Рахунок</p>
+                        <p id="quiz-score" class="text-xl font-bold text-violet-400">0 / 10</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs text-slate-400">Серія вірних</p>
+                        <p id="quiz-streak" class="text-xl font-bold text-gold">0 🔥</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Card Container -->
+            <div id="quiz-card-container" class="max-w-3xl mx-auto bg-cardBg border border-slate-800 rounded-3xl p-8 shadow-2xl relative">
+                <div class="flex justify-between items-center mb-6">
+                    <span id="quiz-progress" class="text-xs font-mono text-slate-400">Питання 1 з 10</span>
+                    <span id="quiz-tag" class="px-3 py-1 bg-violet-500/20 text-violet-400 border border-violet-500/30 text-xs font-semibold rounded-full">Гармонія</span>
+                </div>
+
+                <h3 id="quiz-question" class="text-xl md:text-2xl font-bold text-white mb-6">Питання...</h3>
+
+                <div id="quiz-options" class="space-y-3 mb-8">
+                    <!-- Dynamic Options -->
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-between items-center pt-4 border-t border-slate-800 gap-4">
+                    <div id="quiz-feedback" class="text-sm font-medium"></div>
+                    <button id="quiz-next-btn" onclick="nextQuizQuestion()" class="hidden px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white rounded-xl text-sm font-semibold transition-all shadow-lg shadow-violet-600/30">
+                        Наступне питання <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Complete View -->
+            <div id="quiz-complete" class="hidden max-w-xl mx-auto bg-cardBg border border-slate-800 rounded-3xl p-8 text-center shadow-2xl space-y-6">
+                <div class="w-16 h-16 bg-violet-500/20 border border-violet-500/40 text-violet-400 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-lg">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white">Колоквіум завершено!</h3>
+                <p id="quiz-final-score" class="text-slate-300 text-sm">Ви відповіли правильно на 0 з 10 питань.</p>
+                <button onclick="restartQuiz()" class="px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white rounded-xl text-sm font-semibold transition-all shadow-lg shadow-violet-600/30">
+                    Спробувати знову <i class="fa-solid fa-rotate-right ml-2"></i>
+                </button>
+            </div>
+        </section>
+
+
+        <!-- ================= TAB 4: PIANO & AUDIO LAB ================= -->
+        <section id="tab-piano" class="hidden space-y-6">
+            <div class="bg-cardBg p-6 rounded-2xl border border-slate-800 shadow-xl">
+                <h2 class="text-2xl font-bold text-white mb-1"><i class="fa-solid fa-piano text-violet-500 mr-2"></i>Студія та синтезатор акордів (Web Audio API)</h2>
+                <p class="text-sm text-slate-400">Прослуховуйте альтеровані домінантові структури, секстакорди збільшеної кварти та інші просунуті акорди з реальним синтезом звуку.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Left: Presets & Controls -->
+                <div class="lg:col-span-1 bg-cardBg border border-slate-800 rounded-3xl p-6 shadow-xl flex flex-col justify-between space-y-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-2"><i class="fa-solid fa-headphones text-violet-400 mr-2"></i>Студійні пресети акордів</h3>
+                        <p class="text-xs text-slate-400 mb-4">Миттєве відтворення акордів з урахуванням специфіки голосоведення.</p>
+                        
+                        <div class="space-y-2.5 max-h-[380px] overflow-y-auto pr-1">
+                            <button onclick="playPreset('altered')" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-xl text-xs font-medium transition-all">
+                                <span class="block text-violet-400 font-bold">Альтерований домінантсептакорд (V7 alt)</span>
+                                <span class="text-slate-400">C7(b5, #5, b9, #9)</span>
+                            </button>
+                            <button onclick="playPreset('italian')" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-xl text-xs font-medium transition-all">
+                                <span class="block text-violet-400 font-bold">Італійський секстакорд (It+6)</span>
+                                <span class="text-slate-400">Ab - C - F#</span>
+                            </button>
+                            <button onclick="playPreset('french')" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-xl text-xs font-medium transition-all">
+                                <span class="block text-violet-400 font-bold">Французький секстакорд (Fr+6)</span>
+                                <span class="text-slate-400">Ab - C - D - F#</span>
+                            </button>
+                            <button onclick="playPreset('german')" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-xl text-xs font-medium transition-all">
+                                <span class="block text-violet-400 font-bold">Німецький секстакорд (Ger+6)</span>
+                                <span class="text-slate-400">Ab - C - Eb - F#</span>
+                            </button>
+                            <button onclick="playPreset('swiss')" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-xl text-xs font-medium transition-all">
+                                <span class="block text-violet-400 font-bold">Швейцарський секстакорд (Sw+6)</span>
+                                <span class="text-slate-400">Ab - C - D - E - F#</span>
+                            </button>
+                            <button onclick="playPreset('quartal')" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-xl text-xs font-medium transition-all">
+                                <span class="block text-violet-400 font-bold">Квартова гармонія</span>
+                                <span class="text-slate-400">C - F - Bb - Eb</span>
+                            </button>
+                            <button onclick="playPreset('tritone')" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-xl text-xs font-medium transition-all">
+                                <span class="block text-violet-400 font-bold">Тритонова заміна (SubV7)</span>
+                                <span class="text-slate-400">Db7 у тональності C-dur</span>
+                            </button>
+                            <button onclick="playPreset('diminished')" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-xl text-xs font-medium transition-all">
+                                <span class="block text-violet-400 font-bold">Зменшений септакорд (dim7)</span>
+                                <span class="text-slate-400">Симетрична структура з малих терцій</span>
+                            </button>
+                            <button onclick="playPreset('augmented')" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-xl text-xs font-medium transition-all">
+                                <span class="block text-violet-400 font-bold">Збільшений тризвук (aug)</span>
+                                <span class="text-slate-400">Симетричний тризвук з великих терцій</span>
+                            </button>
+                            <button onclick="playPreset('wholeTone')" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-xl text-xs font-medium transition-all">
+                                <span class="block text-violet-400 font-bold">Цілотоновий лад</span>
+                                <span class="text-slate-400">Шість звуків через велику секунду</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex items-center justify-between">
+                        <span id="piano-status" class="text-xs text-slate-300 font-mono"><i class="fa-solid fa-circle-info mr-1 text-violet-400"></i> Аудіосистему готово</span>
+                        <button onclick="stopAllAudio()" class="px-3 py-1.5 bg-rose-600/20 text-rose-400 hover:bg-rose-600/30 border border-rose-500/30 text-xs font-semibold rounded-xl">Зупинити</button>
+                    </div>
+                </div>
+
+                <!-- Right: Piano Keyboard Visualizer -->
+                <div class="lg:col-span-2 bg-cardBg border border-slate-800 rounded-3xl p-6 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-bold text-white"><i class="fa-solid fa-music text-violet-400 mr-2"></i>Інтерактивна піаніно-клавіатура (Октава C4 - C5)</h3>
+                            <span id="current-note-display" class="text-xs font-mono px-3 py-1 bg-violet-500/20 text-violet-300 border border-violet-500/30 rounded-full">Натисніть клавішу</span>
+                        </div>
+                        <p class="text-xs text-slate-400 mb-6">Клавіші підсвічуються при відтворенні акордів або ручному натисканні.</p>
+                    </div>
+
+                    <!-- Piano Keys Container -->
+                    <div class="relative h-48 bg-slate-950 border border-slate-800 rounded-2xl p-4 flex justify-center items-end select-none overflow-x-auto shadow-inner">
+                        <div class="relative flex h-full">
+                            <!-- White Keys -->
+                            <div onclick="playKey('C4', 261.63, this)" class="white-key w-10 sm:w-12 h-full border border-slate-400 rounded-b-xl cursor-pointer flex flex-col justify-end items-center pb-3 text-slate-900 font-bold text-xs transition-colors relative"><span>C4</span></div>
+                            <div onclick="playKey('D4', 293.66, this)" class="white-key w-10 sm:w-12 h-full border border-slate-400 rounded-b-xl cursor-pointer flex flex-col justify-end items-center pb-3 text-slate-900 font-bold text-xs transition-colors relative"><span>D4</span></div>
+                            <div onclick="playKey('E4', 329.63, this)" class="white-key w-10 sm:w-12 h-full border border-slate-400 rounded-b-xl cursor-pointer flex flex-col justify-end items-center pb-3 text-slate-900 font-bold text-xs transition-colors relative"><span>E4</span></div>
+                            <div onclick="playKey('F4', 349.23, this)" class="white-key w-10 sm:w-12 h-full border border-slate-400 rounded-b-xl cursor-pointer flex flex-col justify-end items-center pb-3 text-slate-900 font-bold text-xs transition-colors relative"><span>F4</span></div>
+                            <div onclick="playKey('G4', 392.00, this)" class="white-key w-10 sm:w-12 h-full border border-slate-400 rounded-b-xl cursor-pointer flex flex-col justify-end items-center pb-3 text-slate-900 font-bold text-xs transition-colors relative"><span>G4</span></div>
+                            <div onclick="playKey('A4', 440.00, this)" class="white-key w-10 sm:w-12 h-full border border-slate-400 rounded-b-xl cursor-pointer flex flex-col justify-end items-center pb-3 text-slate-900 font-bold text-xs transition-colors relative"><span>A4</span></div>
+                            <div onclick="playKey('B4', 493.88, this)" class="white-key w-10 sm:w-12 h-full border border-slate-400 rounded-b-xl cursor-pointer flex flex-col justify-end items-center pb-3 text-slate-900 font-bold text-xs transition-colors relative"><span>B4</span></div>
+                            <div onclick="playKey('C5', 523.25, this)" class="white-key w-10 sm:w-12 h-full border border-slate-400 rounded-b-xl cursor-pointer flex flex-col justify-end items-center pb-3 text-slate-900 font-bold text-xs transition-colors relative"><span>C5</span></div>
+
+                            <!-- Black Keys (Positioned Absolutely) -->
+                            <div onclick="playKey('Db4', 277.18, this); event.stopPropagation();" class="black-key absolute w-7 sm:w-8 h-28 left-[30px] sm:left-[38px] rounded-b-lg cursor-pointer flex flex-col justify-end items-center pb-2 text-white text-[10px] font-bold z-10 transition-colors"><span>C#</span></div>
+                            <div onclick="playKey('Eb4', 311.13, this); event.stopPropagation();" class="black-key absolute w-7 sm:w-8 h-28 left-[70px] sm:left-[86px] rounded-b-lg cursor-pointer flex flex-col justify-end items-center pb-2 text-white text-[10px] font-bold z-10 transition-colors"><span>D#</span></div>
+                            <div onclick="playKey('Gb4', 369.99, this); event.stopPropagation();" class="black-key absolute w-7 sm:w-8 h-28 left-[150px] sm:left-[182px] rounded-b-lg cursor-pointer flex flex-col justify-end items-center pb-2 text-white text-[10px] font-bold z-10 transition-colors"><span>F#</span></div>
+                            <div onclick="playKey('Ab4', 415.30, this); event.stopPropagation();" class="black-key absolute w-7 sm:w-8 h-28 left-[190px] sm:left-[230px] rounded-b-lg cursor-pointer flex flex-col justify-end items-center pb-2 text-white text-[10px] font-bold z-10 transition-colors"><span>G#</span></div>
+                            <div onclick="playKey('Bb4', 466.16, this); event.stopPropagation();" class="black-key absolute w-7 sm:w-8 h-28 left-[230px] sm:left-[278px] rounded-b-lg cursor-pointer flex flex-col justify-end items-center pb-2 text-white text-[10px] font-bold z-10 transition-colors"><span>A#</span></div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 text-center">
+                        <p class="text-xs text-slate-400"><i class="fa-solid fa-circle-info mr-1 text-violet-400"></i> Використовує Web Audio API осцилятор без сторонніх аудіофайлів.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= TAB 5: DICTIONARY ================= -->
+        <section id="tab-dictionary" class="hidden space-y-6">
+            <div class="bg-cardBg p-6 rounded-2xl border border-slate-800 shadow-xl flex flex-col md:flex-row justify-between items-center gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-white mb-1"><i class="fa-solid fa-book-open text-violet-500 mr-2"></i>Академічний словник (52 терміни)</h2>
+                    <p class="text-sm text-slate-400">Повний пошуковий довідник просунутої теорії музики та аналізу.</p>
+                </div>
+                <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+                    <select id="dictionary-cat-filter" onchange="filterDictionary()" class="bg-slate-900 border border-slate-700 text-slate-200 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-violet-500 w-full sm:w-auto">
+                        <option value="all">Усі категорії</option>
+                        <option value="harmonies">Альтерована гармонія & Акорди</option>
+                        <option value="scales">Лади та звуковисотні системи</option>
+                        <option value="technique">Техніки XX-XXI ст. & Серіалізм</option>
+                        <option value="expression">Виконання, Поліфонія & Аналіз</option>
+                    </select>
+                    <input type="text" id="dictionary-search" oninput="filterDictionary()" placeholder="Пошук терміна..." class="bg-slate-900 border border-slate-700 text-slate-200 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-violet-500 w-full sm:w-64">
+                </div>
+            </div>
+
+            <div id="dictionary-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Dynamically populated via JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-slate-800 bg-cardBg/50 py-6 text-center text-xs text-slate-400">
+        <p>Conservatory Advanced Music Theory Hub (52 Terms Edition) &bull; 3-4 Курс &bull; Створено для академічного навчання &bull; Автор: <span class="text-violet-400 font-semibold">Kalina</span></p>
+    </footer>
+
+    <!-- ================= JAVASCRIPT APPLICATION LOGIC ================= -->
+    <script>
+        // --- 1. Master Database of 52 Advanced Music Theory Terms (3-4 Course Conservatory) ---
+        const theoryTerms = [
+            // --- Альтерована гармонія & Акорди (14) ---
+            {
+                term: "Альтерований домінантсептакорд",
+                category: "harmonies",
+                definition: "Домінантсептакорд, у якого підвищені або понижені всі можливі не основні ступені (квінта та нона: b5, #5, b9, #9), що створює максимальне тяжіння в тоніку завдяки хроматичному голосоведенню.",
+                example: "V7(b5, #5, b9, #9) у C-dur вирішується в мажорну або мінорну тоніку (Cmaj7 або Cm7)."
+            },
+            {
+                term: "Італійський секстакорд (It+6)",
+                category: "harmonies",
+                definition: "Акорд збільшеної сексти на основі пониженого VI ступеня (bVI), що містить основний тон, терцію та збільшену сексту. Дублюється терція.",
+                example: "У C-dur/minor: Ab - C - F#. Вирішується в домінантовий тризвук з подвоєною квінтою."
+            },
+            {
+                term: "Французький секстакорд (Fr+6)",
+                category: "harmonies",
+                definition: "Акорд збільшеної сексти на основі bVI, до складу якого входить також чиста кварта (#4), утворюючи інтервал тритона з основою.",
+                example: "У C-dur/minor: Ab - C - D - F#. Володіє яскравим імпресіоністичним колоритом."
+            },
+            {
+                term: "Німецький секстакорд (Ger+6)",
+                category: "harmonies",
+                definition: "Акорд збільшеної сексти на основі bVI, що містить чисту квінту (або зменшену септиму відносно басу). Еквівалентний домінантному септакорду за звучанням.",
+                example: "У C-dur/minor: Ab - C - Eb - F#. Перед резолюцією часто вимагає переходу в італійський чи кварсекстакорд."
+            },
+            {
+                term: "Швейцарський секстакорд (Sw+6)",
+                category: "harmonies",
+                definition: "Рідкісний різновид акорду збільшеної сексти, де замість чистих або понижених ступеневих елементів додається підвищена кварта та чиста терція з лідійським забарвленням.",
+                example: "Застосовується у романтичній гармонії для створення напружених гармонічних модуляцій."
+            },
+            {
+                term: "Тритонова заміна (SubV7)",
+                category: "harmonies",
+                definition: "Заміна стандартного домінантсептакорду домінантовим акордом, побудованим на тритони вище. Мають спільний тритон, але різний бас, який спускається хроматично.",
+                example: "Замість G7 у C-dur використовується Db7 із резолюцією в Cmaj7."
+            },
+            {
+                term: "Неаполітанський секстакорд (N6)",
+                category: "harmonies",
+                definition: "Мажорний тризвук на пониженому II ступені (bII) у першому оберненні. Має виразне плагальне та водночас драматичне звучання в мінорі.",
+                example: "У C-minor неаполітанський секстакорд будується на нотах Db - F - Ab."
+            },
+            {
+                term: "Подвійна домінанта (DD)",
+                category: "harmonies",
+                definition: "Гармонічна функція, яка базується на V ступені від домінантової тональності (II підвищений ступінь або септакорд DD7).",
+                example: "У C-dur подвійна домінанта — це акорд D - F# - A - C, який прямує до G7."
+            },
+            {
+                term: "Хроматична медіанта",
+                category: "harmonies",
+                definition: "Співвідношення між двома мажорними чи мінорними тризвуками на терційній відстані (велика/мала терція) з хроматичним зсувом голосів.",
+                example: "Прямий зв'язок мажорних тризвуків C-dur та Ab-dur або Eb-dur."
+            },
+            {
+                term: "Модальна перемінність",
+                category: "harmonies",
+                definition: "Взаємозбагачення мажору та мінору завдяки запозиченню акордів з однойменної тональності (наприклад, мінорна субдомінанта в мажорі).",
+                example: "Використання акорду Fm у тональності C-dur замість субдомінанти F-dur."
+            },
+            {
+                term: "Побічна домінанта",
+                category: "harmonies",
+                definition: "Домінантсептакорд або тризвук, що тимчасово вітонізує (утверджує) будь-який діатонічний ступінь ладу, окрім тоніки.",
+                example: "V7/II (акорд A7 у тональності C-dur, що прямує до Dm)."
+            },
+            {
+                term: "Септакорд II ступеня (II7)",
+                category: "harmonies",
+                definition: "Один із найважливіших субдомінантових септакордів, що містить ноту субдомінанти та часто застосовується в кадансах.",
+                example: "У C-dur: D - F - A - C (малий мінорний септакорд)."
+            },
+            {
+                term: "Акорд оберненої домінанти",
+                category: "harmonies",
+                definition: "Домінантова гармонія у вигляді секстакорду чи кварсекстакорду, яка виконує формоутворювальну або кадَنْсну функцію.",
+                example: "Кварсекстакорд (K6/4) перед каденційним домінантовим септакордом."
+            },
+            {
+                term: "Ланцюгова модуляція",
+                category: "harmonies",
+                definition: "Послідовність кількох коротких модулюючих переходів через близькі тональності для досягнення віддаленого тонального центру.",
+                example: "Активно використовується у романтичній гармонії Ф. Шопена та Ф. Ліста."
+            },
+
+            // --- Лади та звуковисотні системи (14) ---
+            {
+                term: "Лідійсько-міксолідійський лад",
+                category: "scales",
+                definition: "Діатонічний лад (IV ступінь мелодійного мінору), що містить одночасно підвищену кварту (#4) та понижену септиму (b7).",
+                example: "Застосовується у джазовій гармонії на домінантсептакордах з розширеним спектром."
+            },
+                {
+                term: "Цілотоновий лад",
+                category: "scales",
+                definition: "Симетричний лад із шести звуків на октаву, що складається виключно з великих секунд і позбавлений стійких тонічних тяжінь.",
+                example: "C - D - E - F# - G# - A#. Використовувався у французькому імпресіонізмі."
+            },
+            {
+                term: "Октатоніка (Зменшений лад)",
+                category: "scales",
+                definition: "Симетричний восьмиступеневий лад, що утворюється чітким чергуванням тонів і півтонів (Т-П-Т-П...). Має всього чотири унікальні транспозиції.",
+                example: "Активно використовувався М. Римським-Корсаковим та І. Стравінським."
+            },
+            {
+                term: "Пентатоніка",
+                category: "scales",
+                definition: "П'ятиступеневий звукоряд без півтонів, що є основою фольклорної музики багатьох народів світу та архаїчних ладів.",
+                example: "C - D - E - G - A (ангефемічна пентатоніка)."
+            },
+            {
+                term: "Гармонічний мажор",
+                category: "scales",
+                definition: "Мажоро-мінорна ладова система з пониженим VI ступенем (bVI), що надає акордам особливого східного чи драматичного забарвлення.",
+                example: "C - D - E - F - G - Ab - B - C."
+            },
+            {
+                term: "Мелодійний мінор",
+                category: "scales",
+                definition: "Мінорний звукоряд з підвищеними VI та VII ступенями при русі вгору і натуральними при русі вниз.",
+                example: "C - D - Eb - F - G - A - B - C."
+            },
+            {
+                term: "Дорійський лад",
+                category: "scales",
+                definition: "Натуральний мінор із підвищеною секстою (#6), що створює світліше та благородніше звучання порівняно з чистим мінором.",
+                example: "D - E - F - G - A - B - C - D."
+            },
+            {
+                term: "Фригійський лад",
+                category: "scales",
+                definition: "Натуральний мінор із пониженою другою ступінню (b2), що створює характерний іспансько-архаїчний колорит.",
+                example: "E - F - G - A - B - C - D - E."
+            },
+            {
+                term: "Лідійський лад",
+                category: "scales",
+                definition: "Натуральний мажор із підвищеною квартою (#4), що надає звукоряду яскравого просторового та просвітленого характеру.",
+                example: "F - G - A - B - C - D - E - F."
+            },
+            {
+                term: "Міксолідійський лад",
+                category: "scales",
+                definition: "Натуральний мажор із пониженою септимою (b7), широко використовуваний у народній музиці та рок-гармонії.",
+                example: "G - A - B - C - D - E - F - G."
+            },
+            {
+                term: "Локрійський лад",
+                category: "scales",
+                definition: "Натуральний мінор із пониженими II та V ступенями (b2, b5), що утворює зменшений тризвук на тоніці та вирізняється напругою.",
+                example: "B - C - D - E - F - G - A - B."
+            },
+            {
+                term: "Квартова гармонія",
+                category: "scales",
+                definition: "Гармонічна система, побудована не на терціях, а на чистих або альтерованих квартах, що розширює вертикальні сонорні можливості.",
+                example: "C - F - Bb - Eb (активно у творах А. Скрябіна та сучасних авторів)."
+            },
+            {
+                term: "Мікротоновість",
+                category: "scales",
+                definition: "Використання інтервалів, менших за півтон (чвертьтони, третини тону), що виходить за межі класичної темперованої системи.",
+                example: "Застосовується у спектральній музиці та авангарді ХХ-ХХІ століть."
+            },
+            {
+                term: "Полімодальність",
+                category: "scales",
+                definition: "Одночасне використання двох або більше різних модальних ладів або звукорядів у різних голосах поліфонічної фактури.",
+                example: "Поєднання дорійського та міксолідійського ладу в контрапункті."
+            },
+
+            // --- Техніки XX-XXI ст. & Серіалізм (12) ---
+            {
+                term: "Додекафонія (Серіалізм)",
+                category: "technique",
+                definition: "Техніка композиції Нової віденської школи, де основою твору є серія з 12 хроматичних звуків без повторень.",
+                example: "Основа творчості А. Шенберга, А. Веберна та О. Берга."
+            },
+            {
+                term: "Політональність",
+                category: "technique",
+                definition: "Одночасне звучання двох чи більше самостійних тональностей у різних пластах фактури (І. Стравінський, Б. Барток).",
+                example: "Супровід у C-dur при паралельному звучанні мелодії у F#-dur."
+            },
+            {
+                term: "Алеаторика",
+                category: "technique",
+                definition: "Музична техніка, що базується на елементах випадковості при виконанні або створенні нотного тексту (випадковий порядок нот, фрагментів).",
+                example: "Твори П. Булеза, В. Лютославського та Дж. Кейджа."
+            },
+            {
+                term: "Сонористика",
+                category: "technique",
+                definition: "Напрямок авангарду, де головною виражальною силою стає не мелодія чи гармонія, а темброво-звукова маса (сонор).",
+                example: "Кластери, глісанді, шумові ефекти у творах К. Пендерецкого."
+            },
+            {
+                term: "Пунктіалізм",
+                category: "technique",
+                definition: "Стиль композиції, де музична тканина розбита на ізольовані звукові «крапки» (точки), виконані різними інструментами та регістрами.",
+                example: "Ранні серіальні п'єси Антона Веберна."
+            },
+            {
+                term: "Мінімалізм",
+                category: "technique",
+                definition: "Напрямок, що характеризується багаторазовим повторенням мікромотивів з поступовою мінімальною трансформацією (phase shifting).",
+                example: "Твори С. Райха, Ф. Гласса, Т. Райлі."
+            },
+            {
+                term: "Спектральна музика",
+                category: "technique",
+                definition: "Напрямок, заснований на комп'ютерному чи слуховому аналізі акустичного спектра обертонів конкретного звуку.",
+                example: "Твори Ж. Грізе та М. Ленара."
+            },
+            {
+                term: "Кластер",
+                category: "technique",
+                definition: "Щільне звукове утворення з багатьох сусідніх хроматичних звуків, виконаних одночасно (на фортепіано — кулаком або долонею).",
+                example: "Фортепіанні кластери Генрі Коуелла."
+            },
+            {
+                term: "Стохастична музика",
+                category: "technique",
+                definition: "Композиція, що спирається на теорію ймовірностей і математичні алгоритми (Яніс Ксенакіс).",
+                example: "Використання числових розподілів для оркестрових мас."
+            },
+            {
+                term: "Ковзні серії",
+                category: "technique",
+                definition: "Варіативне перетворення серійних рядів із застосуванням інверсій, ракоходів та транспозицій.",
+                example: "Складна поліфонічна техніка пізнього серіалізму."
+            },
+            {
+                term: "Поліритмія",
+                category: "technique",
+                definition: "Одночасне поєднання двох чи більше ритмічних пульсів, що не зводяться один до одного (наприклад, 3 проти 4).",
+                example: "Складні метричні структури у фортепіанній та оркестровій музиці."
+            },
+            {
+                term: "Асиметричні метри",
+                category: "technique",
+                definition: "Розміри з нерівними долями (наприклад, 5/8, 7/8, 11/8), характерні для народної та сучасної академічної музики.",
+                example: "«Свято весни» І. Стравінського."
+            },
+
+            // --- Виконання, Поліфонія & Аналіз (12) ---
+            {
+                term: "Стрета у фузі",
+                category: "expression",
+                definition: "Кульмінаційний розділ фуги, де тема викладається імітаційно в щільному накладанні голосів.",
+                example: "Й. С. Бах, Фуга до мінор (ХТК, т. 1)."
+            },
+            {
+                term: "Агогіка",
+                category: "expression",
+                definition: "Незначні відхилення від суворого темпу (прискорення чи уповільнення) заради художньої виразності виконання.",
+                example: "Виконання романтичних канталенних тем Ф. Шопена."
+            },
+            {
+                term: "Рубато (Rubato)",
+                category: "expression",
+                definition: "Гнучке трактування темпу, коли втрата часу в одному місці компенсується прискоренням в іншому без порушення метра.",
+                example: "Головна ознака виразного виконання ноктюрнів."
+            },
+            {
+                term: "Імітація",
+                category: "expression",
+                definition: "Точне або варіативне повторення мелодійного мотиву, проведеного в одному голосі, іншим голосом поліфонічної тканини.",
+                example: "Основа побудови інвенцій, канонів та фуг."
+            },
+            {
+                term: "Остінато (Ostinato)",
+                category: "expression",
+                definition: "Неоднократне повторення короткої мелодійної, ритмічної чи гармонічної фігури протягом усього твору чи розділу.",
+                example: "«Болеро» М. Равеля."
+            },
+            {
+                term: "Контрапункт",
+                category: "expression",
+                definition: "Мистецтво поєднання двох або більше самостійних мелодійних голосів у єдину багатоголосну фактуру.",
+                example: "Поліфонічні форми епохи Бароко та Ренесансу."
+            },
+            {
+                term: "Пасакалія",
+                category: "expression",
+                definition: "Старовинна поліфонічна варіаційна форма на незмінну тему (остінато), яка найчастіше звучить у басовому голосі.",
+                example: "Пасакалія до мінор Й. С. Баха (BWV 582)."
+            },
+            {
+                term: "Чакона",
+                category: "expression",
+                definition: "Варіаційна форма на основі остінатної гармонічної чи мелодійної послідовності (подібна до пасакалії, але з акцентом на гармонію).",
+                example: "Чакона ре мінор для сольної скрипки Й. С. Баха."
+            },
+            {
+                term: "Сонатна форма",
+                category: "expression",
+                definition: "Найвища архітектонічна інструментальна форма, що складається з експозиції, розробки та репризи на основі зіткнення тем.",
+                example: "Перші частини сонат Л. ван Бетховена."
+            },
+            {
+                term: "Рондо-соната",
+                category: "expression",
+                    definition: "Складна формоутворювальна структура, що поєднує ознаки рондо (рефрен) та сонатної форми (розробка та контрастні епізоди).",
+                example: "Фінали багатьох класичних фортепіанних сонат."
+            },
+            {
+                term: "Діалектичне голосоведення",
+                category: "expression",
+                definition: "Принцип суворого класичного голосоведення з урахуванням горизонтального розвитку та чистих інтервалів між голосами.",
+                example: "Правила суворого та вільного стилю поліфонії."
+            },
+            {
+                term: "Трубадурська ладовість",
+                category: "expression",
+                definition: "Система ранньосередньовічних модальних ладів (церковних тонів), що передували сучасній мажоро-мінорній системі.",
+                example: "Дорійський, фригійський, лідійський лади у творах труверів і трубадурів."
+            }
+        ];
+
+        // --- 2. Quiz Questions Database (Dynamic & Rigorous) ---
+        const quizData = [
+            {
+                question: "Який інтервал утворюється між основним тоном та альтерованою ноною (b9) у домінантсептакорді?",
+                tag: "Альтерована гармонія",
+                options: ["Мала нона (13 півтонів)", "Велика нона (14 півтонів)", "Зменшена октава", "Чиста октава"],
+                correct: 0
+            },
+            {
+                question: "Що входить до складу італійського секстакорду (It+6) у тональності C-dur/minor?",
+                tag: "Альтерована гармонія",
+                options: ["Ab - C - F#", "Ab - C - D - F#", "Ab - C - Eb - F#", "Ab - C - D - E - F#"],
+                correct: 0
+            },
+            {
+                question: "Який лад утворюється шляхом чергування півтонів і цілих тонів (П-Т-П-Т...)?",
+                tag: "Лади та системи",
+                options: ["Цілотоновий лад", "Зменшений лад (октатоніка)", "Пентатоніка", "Лідійський лад"],
+                correct: 1
+            },
+            {
+                question: "Що таке неаполітанський секстакорд (N6) в гармонії?",
+                tag: "Альтерована гармонія",
+                options: ["Мажорний тризвук на пониженому II ступені в першому оберненні", "Мінорний тризвук на підвищеному IV ступені", "Зменшений септакорд на VII ступені", "Домінантсептакорд з квартакордом"],
+                correct: 0
+            },
+            {
+                question: "Який композитор є основоположником додекафонії (серіальної техніки)?",
+                tag: "Техніки XX століття",
+                options: ["Клод Дебюссі", "Арнольд Шенберг", "Бела Барток", "Дмитро Шостакович"],
+                correct: 1
+            },
+            {
+                question: "Яка головна особливість тритонової заміни (SubV7)?",
+                tag: "Альтерована гармонія",
+                options: ["Має той самий тритон, що й оригінальний домінантсепт, але інший бас на тритон вище/нижче", "Будується виключно на натуральній септимі", "Повністю позбавлена дисонансів", "Вирішується безпосередньо в субдомінанту"],
+                correct: 0
+            },
+            {
+                question: "Що означає термін 'стрета' у поліфонічній фузі?",
+                tag: "Поліфонія та аналіз",
+                options: ["Повільне розширення теми наприкінці твору", "Тісне накладання проведення теми в різних голосах", "Повна пауза перед кодою", "Зміна метроритму на 3/4"],
+                correct: 1
+            },
+            {
+                question: "Які ступені діатонічного мажору альтеруються у лідійсько-міксолідійському ладі?",
+                tag: "Лади та системи",
+                options: ["Підвищена кварта (#4) та понижена септима (b7)", "Понижена терція (b3) та підвищена секста (#6)", "Понижена квінта (b5) та понижена нона (b9)", "Підвищена квінта (#5) та підвищена септима (#7)"],
+                correct: 0
+            },
+            {
+                question: "Що таке алеаторика у сучасній музиці?",
+                tag: "Техніки XX століття",
+                options: ["Техніка, що базується на елементах випадковості при виконанні чи побудові твору", "Суворий серіальний підрахунок інтервалів", "Поліфонічна імітація XVI століття", "Використання виключно мікротонів"],
+                correct: 0
+            },
+            {
+                question: "Чим відрізняється французький секстакорд від німецького?",
+                tag: "Альтерована гармонія",
+                options: ["Французький містить чисту кварту (#4), а німецький — чисту квінту", "Німецький містить тритон замість сексти", "Французький будується на підвищеній домінанті", "Вони повністю ідентичні за звучанням"],
+                correct: 0
+            }
+        ];
+
+        // --- 3. App State & LocalStorage Persistence ---
+        let currentCardIndex = 0;
+        let isFlipped = false;
+        let activeCategory = 'all';
+        let filteredCards = [...theoryTerms];
+        let masteredCards = JSON.parse(localStorage.getItem('conservatory_mastered_52') || '[]');
+
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+        let quizStreak = parseInt(localStorage.getItem('conservatory_streak_52') || '0');
+        let quizAnswered = false;
+
+        let audioCtx = null;
+        let activeOscillators = [];
+
+        // --- Initialization ---
+        window.onload = function() {
+            updateFlashcardUI();
+            loadQuizQuestion();
+            renderDictionary();
+            updateDashboardStats();
+        };
+
+        // --- Tab Switching ---
+        function switchTab(tabId) {
+            ['dashboard', 'flashcards', 'quiz', 'piano', 'dictionary'].forEach(id => {
+                const el = document.getElementById(`tab-${id}`);
+                if(el) el.classList.add('hidden');
+            });
+            const target = document.getElementById(`tab-${tabId}`);
+            if(target) target.classList.remove('hidden');
+
+            // Update Nav styles
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.className = "nav-btn px-4 py-2 rounded-xl text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-slate-800/60";
+            });
+            const activeBtn = document.getElementById(`nav-${tabId}`);
+            if(activeBtn) {
+                activeBtn.className = "nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-violet-600 text-white shadow-md shadow-violet-600/20";
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if(menu) menu.classList.toggle('hidden');
+        }
+
+        // --- Dashboard Stats Update ---
+        function updateDashboardStats() {
+            const el1 = document.getElementById('stat-flashcards');
+            const el2 = document.getElementById('stat-streak');
+            if(el1) el1.innerText = `${masteredCards.length} / ${theoryTerms.length}`;
+            if(el2) el2.innerText = `${quizStreak} 🔥`;
+        }
+
+        // --- Flashcards Logic ---
+        function filterFlashcards() {
+            const val = document.getElementById('category-filter').value;
+            activeCategory = val;
+            if (activeCategory === 'all') {
+                filteredCards = [...theoryTerms];
+            } else {
+                filteredCards = theoryTerms.filter(c => c.category === activeCategory);
+            }
+            currentCardIndex = 0;
+            if(isFlipped) flipCard();
+            updateFlashcardUI();
+        }
+
+        function shuffleFlashcards() {
+            for (let i = filteredCards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [filteredCards[i], filteredCards[j]] = [filteredCards[j], filteredCards[i]];
+            }
+            currentCardIndex = 0;
+            if(isFlipped) flipCard();
+            updateFlashcardUI();
+        }
+
+        function updateFlashcardUI() {
+            if (filteredCards.length === 0) {
+                document.getElementById('card-term').innerText = "Немає карток у цій категорії";
+                document.getElementById('card-definition').innerText = "";
+                document.getElementById('card-example').innerText = "";
+                return;
+            }
+            const card = filteredCards[currentCardIndex];
+            document.getElementById('card-term').innerText = card.term;
+            document.getElementById('card-definition-title').innerText = card.term;
+            document.getElementById('card-definition').innerText = card.definition;
+            document.getElementById('card-example').innerText = card.example;
+            document.getElementById('current-card-num').innerText = currentCardIndex + 1;
+            document.getElementById('total-cards-num').innerText = filteredCards.length;
+
+            const badgeMap = { 
+                harmonies: "Альтерована гармонія", 
+                scales: "Лади & Системи", 
+                technique: "Техніки XX-XXI ст.", 
+                expression: "Виконання & Аналіз" 
+            };
+            document.getElementById('card-badge').innerText = badgeMap[card.category] || card.category;
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            const inner = document.getElementById('flashcard-inner');
+            if(inner) inner.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+        }
+
+        function nextCard() {
+            if (filteredCards.length === 0) return;
+            if (isFlipped) flipCard();
+            setTimeout(() => {
+                currentCardIndex = (currentCardIndex + 1) % filteredCards.length;
+                updateFlashcardUI();
+            }, 200);
+        }
+
+        function prevCard() {
+            if (filteredCards.length === 0) return;
+            if (isFlipped) flipCard();
+            setTimeout(() => {
+                currentCardIndex = (currentCardIndex - 1 + filteredCards.length) % filteredCards.length;
+                updateFlashcardUI();
+            }, 200);
+        }
+
+        function markCardStatus(status) {
+            if(filteredCards.length === 0) return;
+            const term = filteredCards[currentCardIndex].term;
+            if (status === 'mastered' && !masteredCards.includes(term)) {
+                masteredCards.push(term);
+            } else if (status === 'review' && masteredCards.includes(term)) {
+                masteredCards = masteredCards.filter(t => t !== term);
+            }
+            localStorage.setItem('conservatory_mastered_52', JSON.stringify(masteredCards));
+            updateDashboardStats();
+            nextCard();
+        }
+
+        // --- Quiz Engine Logic ---
+        function loadQuizQuestion() {
+            if (currentQuizIndex >= quizData.length) {
+                const cont = document.getElementById('quiz-card-container');
+                const comp = document.getElementById('quiz-complete');
+                if(cont) cont.classList.add('hidden');
+                if(comp) comp.classList.remove('hidden');
+                const finalSc = document.getElementById('quiz-final-score');
+                if(finalSc) finalSc.innerText = `Ви відповіли правильно на ${quizScore} з ${quizData.length} питань.`;
+                updateDashboardStats();
+                return;
+            }
+
+            quizAnswered = false;
+            const q = quizData[currentQuizIndex];
+            document.getElementById('quiz-progress').innerText = `Питання ${currentQuizIndex + 1} з ${quizData.length}`;
+            document.getElementById('quiz-tag').innerText = q.tag;
+            document.getElementById('quiz-question').innerText = q.question;
+            document.getElementById('quiz-feedback').innerHTML = '';
+            document.getElementById('quiz-next-btn').classList.add('hidden');
+
+            const container = document.getElementById('quiz-options');
+            container.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-sm font-medium transition-all flex items-center justify-between group";
+                btn.innerHTML = `<span>${opt}</span><span class="w-6 h-6 rounded-full border border-slate-700 flex items-center justify-center text-xs text-slate-400 group-hover:border-violet-500">${String.fromCharCode(65 + idx)}</span>`;
+                btn.onclick = () => selectQuizAnswer(idx, btn);
+                container.appendChild(btn);
+            });
+        }
+
+        function selectQuizAnswer(selectedIndex, selectedBtn) {
+            if (quizAnswered) return;
+            quizAnswered = true;
+
+            const q = quizData[currentQuizIndex];
+            const buttons = document.getElementById('quiz-options').getElementsByTagName('button');
+
+            if (selectedIndex === q.correct) {
+                selectedBtn.className = "w-full text-left p-4 rounded-xl bg-emerald-950/60 border border-emerald-600 text-emerald-200 text-sm font-medium flex items-center justify-between";
+                quizScore++;
+                quizStreak++;
+                document.getElementById('quiz-feedback').innerHTML = '<span class="text-emerald-400 font-bold"><i class="fa-solid fa-check mr-1"></i> Вірно! Чудове знання теорії.</span>';
+            } else {
+                selectedBtn.className = "w-full text-left p-4 rounded-xl bg-rose-950/60 border border-rose-600 text-rose-200 text-sm font-medium flex items-center justify-between";
+                if(buttons[q.correct]) {
+                    buttons[q.correct].className = "w-full text-left p-4 rounded-xl bg-emerald-950/60 border border-emerald-600 text-emerald-200 text-sm font-medium flex items-center justify-between";
+                }
+                quizStreak = 0;
+                document.getElementById('quiz-feedback').innerHTML = '<span class="text-rose-400 font-bold"><i class="fa-solid fa-xmark mr-1"></i> Невірно. Повторіть цей розділ.</span>';
+            }
+
+            localStorage.setItem('conservatory_streak_52', quizStreak);
+            document.getElementById('quiz-score').innerText = `${quizScore} / ${quizData.length}`;
+            document.getElementById('quiz-streak').innerText = `${quizStreak} 🔥`;
+            document.getElementById('quiz-next-btn').classList.remove('hidden');
+        }
+
+        function nextQuizQuestion() {
+            currentQuizIndex++;
+            loadQuizQuestion();
+        }
+
+        function restartQuiz() {
+            currentQuizIndex = 0;
+            quizScore = 0;
+            document.getElementById('quiz-card-container').classList.remove('hidden');
+            document.getElementById('quiz-complete').classList.add('hidden');
+            loadQuizQuestion();
+        }
+
+        // --- Web Audio API Synth Engine ---
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function stopAllAudio() {
+            activeOscillators.forEach(osc => {
+                try { osc.stop(); } catch(e){}
+            });
+            activeOscillators = [];
+            const st = document.getElementById('piano-status');
+            if(st) st.innerHTML = '<i class="fa-solid fa-circle-info mr-1 text-violet-400"></i> Звук зупинено';
+        }
+
+        function playTone(freq, duration = 1.2, type = 'triangle') {
+            initAudio();
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, now);
+
+            gain.gain.setValueAtTime(0, now);
+            gain.gain.linearRampToValueAtTime(0.2, now + 0.08);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(now);
+            osc.stop(now + duration + 0.1);
+            activeOscillators.push(osc);
+        }
+
+        function playKey(noteName, freq, element) {
+            playTone(freq, 1.5, 'triangle');
+            const disp = document.getElementById('current-note-display');
+            if(disp) disp.innerText = `Нота: ${noteName} (${freq} Hz)`;
+            
+            if (element) {
+                element.classList.add('active');
+                setTimeout(() => element.classList.remove('active'), 400);
+            }
+        }
+
+        function playChordFrequencies(freqs, chordName) {
+            initAudio();
+            stopAllAudio();
+            const now = audioCtx.currentTime;
+            const st = document.getElementById('piano-status');
+            if(st) st.innerHTML = `<i class="fa-solid fa-volume-high mr-1 text-emerald-400"></i> Грає: <b>${chordName}</b>`;
+
+            freqs.forEach((freq, idx) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = idx % 2 === 0 ? 'triangle' : 'sine';
+                osc.frequency.setValueAtTime(freq, now);
+
+                gain.gain.setValueAtTime(0, now);
+                gain.gain.linearRampToValueAtTime(0.18, now + 0.1);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 2.5);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start(now);
+                osc.stop(now + 2.6);
+                activeOscillators.push(osc);
+            });
+        }
+
+        function playPreset(type) {
+            const root = 261.63; // C4
+            let freqs = [];
+            let name = "";
+
+            switch(type) {
+                case 'altered':
+                    freqs = [root, root * 1.25, root * 1.414, root * 1.587, root * 1.78, root * 1.059];
+                    name = "Альтерований домінантсептакорд";
+                    break;
+                case 'italian':
+                    let ab1 = root * 0.841;
+                    freqs = [ab1, root, ab1 * 1.86];
+                    name = "Італійський секстакорд (It+6)";
+                    break;
+                case 'french':
+                    let ab2 = root * 0.841;
+                    freqs = [ab2, root, ab2 * 1.33, ab2 * 1.86];
+                    name = "Французький секстакорд (Fr+6)";
+                    break;
+                case 'german':
+                    let ab3 = root * 0.841;
+                    freqs = [ab3, root, ab3 * 1.189, ab3 * 1.86];
+                    name = "Німецький секстакорд (Ger+6)";
+                    break;
+                case 'swiss':
+                    let ab4 = root * 0.841;
+                    freqs = [ab4, root, ab4 * 1.33, ab4 * 1.49, ab4 * 1.86];
+                    name = "Швейцарський секстакорд (Sw+6)";
+                    break;
+                case 'quartal':
+                    freqs = [root, root * 1.33, root * 1.78, root * 2.37];
+                    name = "Квартова гармонія";
+                    break;
+                case 'tritone':
+                    let db = root * 1.059;
+                    freqs = [db, db * 1.25, db * 1.5, db * 1.78];
+                    name = "Тритонова заміна (SubV7)";
+                    break;
+                case 'diminished':
+                    freqs = [root, root * 1.189, root * 1.414, root * 1.682];
+                    name = "Зменшений септакорд (dim7)";
+                    break;
+                case 'augmented':
+                    freqs = [root, root * 1.25, root * 1.587];
+                    name = "Збільшений тризвук (aug)";
+                    break;
+                case 'wholeTone':
+                    freqs = [root, root * 1.122, root * 1.26, root * 1.414, root * 1.587, root * 1.782];
+                    name = "Цілотоновий лад";
+                    break;
+            }
+            playChordFrequencies(freqs, name);
+        }
+
+        function playCurrentTermAudio() {
+            playPreset('altered');
+        }
+
+        // --- Dictionary Search & Render ---
+        function renderDictionary(filter = "", catFilter = "all") {
+            const container = document.getElementById('dictionary-grid');
+            if(!container) return;
+            container.innerHTML = '';
+
+            const filtered = theoryTerms.filter(item => {
+                const matchesCat = (catFilter === 'all' || item.category === catFilter);
+                const matchesSearch = item.term.toLowerCase().includes(filter.toLowerCase()) || item.definition.toLowerCase().includes(filter.toLowerCase());
+                return matchesCat && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<p class="text-slate-400 text-sm col-span-2 text-center py-12">Нічого не знайдено за вашим запитом.</p>';
+                return;
+            }
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-cardBg border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col justify-between";
+                
+                const badgeMap = { 
+                    harmonies: "Альтерована гармонія", 
+                    scales: "Лади & Системи", 
+                    technique: "Техніки XX-XXI ст.", 
+                    expression: "Виконання & Аналіз" 
+                };
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="text-base font-bold text-white">${item.term}</h4>
+                            <span class="px-2.5 py-1 bg-violet-500/20 text-violet-400 text-[10px] font-semibold rounded-full">${badgeMap[item.category] || item.category}</span>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-4">${item.definition}</p>
+                    </div>
+                    <div class="bg-slate-900/60 border border-slate-800 p-3 rounded-xl">
+                        <p class="text-[10px] font-bold text-violet-400 uppercase tracking-wider mb-1"><i class="fa-solid fa-lightbulb mr-1"></i> Приклад:</p>
+                        <p class="text-[11px] text-slate-400 italic">${item.example}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterDictionary() {
+            const query = document.getElementById('dictionary-search').value;
+            const cat = document.getElementById('dictionary-cat-filter').value;
+            renderDictionary(query, cat);
+        }
+
+        function filterDictionaryByCategory(cat) {
+            const select = document.getElementById('dictionary-cat-filter');
+            if(select) select.value = cat;
+            renderDictionary("", cat);
+        }
+    </script>
+</body>
+</html>
